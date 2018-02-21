@@ -1,0 +1,22 @@
+<!doctype HTML>
+<html>
+<script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+<script type="text/javascript" src="js/aframe-ar.js"></script>
+  <body style='margin : 0px; overflow: hidden;'>
+    <a-scene embedded arjs>
+    <a-assets>
+    	<a-asset-item id="monkey-obj" src="3D/monkey.obj"></a-asset-item>
+    	<a-asset-item id="monkey-mtl" src="3D/monkey.mtl"></a-asset-item>
+    </a-assets>
+
+  	<!--<a-marker preset="hiro">-->
+  	<a-marker preset="custom" type="pattern" url="patterns/custom0.patt">
+  		<a-entity obj-model="obj: #monkey-obj; mtl: #monkey-mtl"></a-entity>
+  	</a-marker>
+  	<a-marker preset="custom" type="pattern" url="patterns/custom1.patt">
+  		<a-entity obj-model="obj: #monkey-obj" material="color: red"></a-entity>
+  	</a-marker>
+  	<a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
