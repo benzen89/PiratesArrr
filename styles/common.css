@@ -10,7 +10,15 @@
     position: fixed;
     bottom: 20px;
     right: 30px;
-    /*width:100%;*/
-    text-align: center;
+    /*width:100%;
+    text-align: center;*/
     z-index: 1;
+}
+
+.howtobtn{
+	right: 50%;
+}
+
+.sharebtn{
+	align-content: right;
 }
