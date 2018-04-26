@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
   <script type="text/javascript" src="js/aframe-ar.js"></script>
+  <script type="text/javascript" src="js/clue-game-logic.js"></script>
   <link rel="stylesheet" type="text/css" href="styles/common.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-red.min.css">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
-  <body style='margin : 0px; overflow: hidden;'>
+  <body style='margin : 0px; overflow: hidden;' onload="startUpdate()">
     <a-scene embedded arjs>
     <a-assets>
 
@@ -21,16 +22,8 @@
       <img id="emoji-texture" src="3D/emojis.png">
     </a-assets>
 
-    <!-- ICELAND -->
-    <a-marker preset="custom" type="pattern" url="patterns/Iceland.patt">
-    </a-marker>
-
-    <!-- NORWAY -->
-    <a-marker preset="custom" type="pattern" url="patterns/Norway.patt">
-    </a-marker>
-
     <!-- DENMARK -->
-    <a-marker preset="custom" type="pattern" url="patterns/Denmark.patt">
+    <a-marker id="denmark" preset="custom" type="pattern" url="patterns/Denmark.patt">
       <a-entity 
         obj-model="obj: #sweden-obj"
         material="src: #emoji-texture; transparent: false; alphaTest: 0.5">
@@ -39,7 +32,7 @@
     </a-marker>
 
     <!-- SWEDEN -->
-    <a-marker preset="custom" type="pattern" url="patterns/Sweden.patt">
+    <a-marker id="sweden" preset="custom" type="pattern" url="patterns/Sweden.patt">
       <a-entity 
         obj-model="obj: #estonia-obj"
         material="src: #emoji-texture; transparent: false; alphaTest: 0.5">
@@ -47,7 +40,7 @@
     </a-marker>
 
     <!-- ESTONIA -->
-    <a-marker preset="custom" type="pattern" url="patterns/Estonia.patt">
+    <a-marker id="estonia" preset="custom" type="pattern" url="patterns/Estonia.patt">
       <a-entity
         obj-model="obj: #latvia-obj"
         material="src: #emoji-texture; transparent: false; alphaTest: 0.5">
@@ -55,7 +48,7 @@
     </a-marker>
 
     <!-- LATVIA -->
-    <a-marker preset="custom" type="pattern" url="patterns/Latvia.patt">
+    <a-marker id="latvia" preset="custom" type="pattern" url="patterns/Latvia.patt">
       <a-entity
         obj-model="obj: #lithuania-obj"
         material="src: #emoji-texture; transparent: false; alphaTest: 0.5">
@@ -63,7 +56,7 @@
     </a-marker>
 
     <!-- LITHUANIA -->
-    <a-marker preset="custom" type="pattern" url="patterns/Lithuania.patt">
+    <a-marker id="lithuania" preset="custom" type="pattern" url="patterns/Lithuania.patt">
       <a-entity 
         obj-model="obj: #denmark-obj"
         material="src: #emoji-texture; transparent: false; alphaTest: 0.5">
