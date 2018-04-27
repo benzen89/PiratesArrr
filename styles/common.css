@@ -9,9 +9,15 @@
 .ui{
     position: fixed;
     bottom: 20px;
-    right: 30px;
-    /*width:100%;
-    text-align: center;*/
+    right: 20px;
+    z-index: 1;
+}
+
+#cleared-flags{
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 30px;
     z-index: 1;
 }
 

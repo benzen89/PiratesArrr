@@ -4,68 +4,99 @@ This is the game logic. Each marker will show a clue to which marker to find nex
 Progress is stored as HTML5 web storage
 */
 
-var current_clue;	//the clue stored in the country marker
+var activeClue;	//the clue stored in the country marker
+var countries = ["denmark", "sweden", "estonia", "latvia", "lithuania"];
+var clues = {denmark: "sweden", sweden: "estonia", estonia: "latvia", latvia: "lithuania", lithuania: "denmark"};
 
-function startUpdate(){
-	window.setInterval(update, 1000);
+function Start(){
+	DisplayProgress();
+	window.setInterval(Update, 500);	//update once every half second
 }
 
-function update(){
-	console.log(current_clue);
-	checkMarkers();
+function Update(){
+	CheckMarkers();
 }
 
-function checkMarkers(){
-	if(document.querySelector("#denmark").object3D.visible == true){
-		if(current_clue == null){
-			setClueTo("Denmark");
-		} else if(current_clue == "Lithuania"){
-			correctAnswer();
-			setClueTo("Denmark");
-		}
-	}
-	if(document.querySelector("#sweden").object3D.visible == true){
-		if(current_clue == null){
-			setClueTo("Sweden");
-		} else if(current_clue == "Denmark"){
-			correctAnswer();
-			setClueTo("Sweden");
-		}
-	}
-	if(document.querySelector("#estonia").object3D.visible == true){
-		if(current_clue == null){
-			setClueTo("Estonia");
-		} else if(current_clue == "Sweden"){
-			correctAnswer();
-			setClueTo("Estonia");
-		}
-	}
-	if(document.querySelector("#latvia").object3D.visible == true){
-		if(current_clue == null){
-			setClueTo("Latvia");
-		} else if(current_clue == "Estonia"){
-			correctAnswer();
-			setClueTo("Latvia");
-		}
-	}
-	if(document.querySelector("#lithuania").object3D.visible == true){
-		if(current_clue == null){
-			setClueTo("Lithuania");
-		} else if(current_clue == "Latvia"){
-			correctAnswer();
-			setClueTo("Lithuania");
+function CheckMarkers(){
+	CheckSingleMarker("denmark", "lithuania");
+	CheckSingleMarker("sweden", "denmark");
+	CheckSingleMarker("estonia", "sweden");
+	CheckSingleMarker("latvia", "estonia");
+	CheckSingleMarker("lithuania", "latvia");
+}
+
+function CheckSingleMarker(markerCountry, clueAnswerCountry){
+	var iden = "#" + markerCountry;
+	if(document.querySelector(iden).object3D.visible == true){
+		if(activeClue == null && activeClue !== markerCountry){
+			SetClueTo(markerCountry);
+		} else if(activeClue == clueAnswerCountry){
+			CorrectAnswer(clueAnswerCountry);
+			SetClueTo(markerCountry);
 		}
 	}
 }
 
-function cancelClue(){
-	current_clue = null;
+function CancelClue(){
+	activeClue = null;
+	console.log(activeClue);
+	DisplayClue("no");
+	document.getElementById('cancel-sound').play();
 }
 
-function setClueTo(cntry){
-	current_clue = cntry;
+function SetClueTo(cntry){
+	if(localStorage.getItem(cntry) !== "cleared"){
+		activeClue = cntry;
+		DisplayClue(clues[cntry.toString()]);
+		console.log(activeClue);
+	} else{
+		console.log("already selected");
+	}
+	document.getElementById('select-sound').play();
 }
 
-function correctAnswer(){
-	console.log("Correct answer!");
+function CorrectAnswer(cntry){
+	if(localStorage.getItem(cntry) !== "cleared"){
+		console.log("Correct answer!");
+		StoreProgress(cntry);
+		DisplayFlag(cntry);
+		document.getElementById('success-sound').play();
+	} else{
+		console.log("already cleared");
+	}
+}
+
+function StoreProgress(cntry){
+	if (typeof(Storage) !== "undefined") {
+    	localStorage.setItem(cntry.toString(), "cleared");
+	} else {
+    	// Sorry! No Web Storage support.
+	}
+}
+
+function DisplayClue(image){
+	document.getElementById("active-clue").src = 'img/' + image + '_clue.png';
+}
+
+function DisplayFlag(cntry){
+	var myDiv = document.getElementById("cleared-flags");
+	var oimg = document.createElement("img");
+	oimg.setAttribute('src', 'img/' + cntry.toString() + '.png');
+	oimg.setAttribute('height', '20');
+	oimg.setAttribute('width', '30');
+	myDiv.appendChild(oimg);
+}
+
+function DisplayProgress(){
+	var myDiv = document.getElementById("cleared-flags");
+	var i;
+	for(i = 0; i < localStorage.length; i++){
+		if(localStorage.getItem(localStorage.key(i)) == "cleared"){
+			var oimg = document.createElement("img");
+			oimg.setAttribute('src', 'img/' + countries[(i-1)] + '.png');
+			oimg.setAttribute('height', '20');
+			oimg.setAttribute('width', '30');
+			myDiv.appendChild(oimg);
+		}
+	}
 }
