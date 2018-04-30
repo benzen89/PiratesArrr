@@ -12,6 +12,12 @@
     right: 20px;
     z-index: 1;
 }
+#active-clue{
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 1;
+}
 
 #cleared-flags{
     position: fixed;
@@ -21,10 +27,50 @@
     z-index: 1;
 }
 
+#how-to-play{
+    position: fixed;
+    top: 5%;
+    left: 15%;
+    width: 70%;
+    text-align: center;
+    background-color: white;
+    border-radius: 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    z-index: 1;
+} 
+
+#how-to-play p{
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+@media only screen and (min-width:426px){
+    #how-to-play{
+        left: 25%;
+        width: 50%;  
+    }
+    #how-to-play p{
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+}
+
 .howtobtn{
 	right: 50%;
 }
 
+#close-howto{
+    position: absolute;
+    top: -20px;
+    right: -15px;
+}
+
 .sharebtn{
 	align-content: right;
+}
+
+li a{
+    color: black;
+    text-decoration: none;
 }

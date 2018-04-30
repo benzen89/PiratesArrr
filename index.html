@@ -13,7 +13,6 @@
   <body style='margin : 0px; overflow: hidden;' onload="Start()">
     <a-scene embedded arjs>
     <a-assets>
-
       <a-asset-item id="estonia-obj" src="3D/Estonia.obj"></a-asset-item>
       <a-asset-item id="latvia-obj" src="3D/Latvia.obj"></a-asset-item>
       <a-asset-item id="lithuania-obj" src="3D/Lithuania.obj"></a-asset-item>
@@ -28,7 +27,6 @@
         obj-model="obj: #sweden-obj"
         material="src: #emoji-texture; transparent: false; alphaTest: 0.5">
       </a-entity>
-      
     </a-marker>
 
     <!-- SWEDEN -->
@@ -68,13 +66,26 @@
     <div id="cleared-flags">
       <!-- cleared clue flags come here with js -->
     </div>
+    <div id="how-to-play" style="display: block">
+      <div id="close-howto">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" onclick="ToggleHowToPlay()">
+          <i class="material-icons">clear</i>
+        </button>
+      </div>
+      <p>Osoita puhelimen kamera lipputangoissa olevia merkkejä kohti nähdäksesi näkymättömän vihjeen seuraavalle lipulle!</p>
+      <img src="img/how_to.png" width="80%">
+      <p></p>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="DeleteProgress()">
+          UUSI PELI
+        </button>
+    </div>
+    <img id="active-clue" src="img/no_clue.png" alt="currently active clue" height="56">
     <div class="ui">
-      <img id="active-clue" src="img/no_clue.png" alt="currently active clue" height="56">
       <!-- Right aligned menu on top of button  -->
       <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="CancelClue()">
         <i class="material-icons">undo</i>
       </button>
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="ToggleHowToPlay()">
         <i class="material-icons">help</i>
         <!--<a href="pages/howto.html">Ohjeet</a>-->
       </button>
@@ -82,19 +93,30 @@
         <i class="material-icons">share</i>
       </button>
       <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect" data-mdl-for="demo-menu-top-right">
-        <li class="mdl-menu__item">facebook</li>
-        <li class="mdl-menu__item">twitter</li>
-        <li class="mdl-menu__item">instagram</li>
+        <li class="mdl-menu__item"><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//piratesarrr.nfshost.com">Share on Facebook</a></li>
+        <li class="mdl-menu__item"><a href="https://twitter.com/home?status=%23Lippumaailma%20%23Hamina">Share on Twitter</a></li>
+        <li class="mdl-menu__item"><a href="https://plus.google.com/share?url=https%3A//piratesarrr.nfshost.com">Share on Google+</a></li>
+        <li class="mdl-menu__item"><a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//piratesarrr.nfshost.com&title=Augmented%20reality%20at%20Hamina%20Flag%20World&summary=&source=">Share on LinkedIn</a></li>
+        <li class="mdl-menu__item"><a href="https://pinterest.com/pin/create/button/?url=Flag%20World%20in%20Hamina&media=https%3A//piratesarrr.nfshost.com&description=Augmented%20reality%20used%20in%20outdoor%20">Pin on Pinterest</a></li>
       </ul>
     </div>
     <audio id="success-sound" controls>
       <source src="sound/success.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="wrong-sound" controls>
+      <source src="sound/wrong.mp3" type="audio/mpeg">
     </audio>
     <audio id="select-sound" controls>
       <source src="sound/select.mp3" type="audio/mpeg">
     </audio>
     <audio id="cancel-sound" controls>
       <source src="sound/cancel.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="cleared-sound" controls>
+      <source src="sound/cleared.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="victory-sound" controls>
+      <source src="sound/victory.mp3" type="audio/mpeg">
     </audio>
   </body>
 </html>
